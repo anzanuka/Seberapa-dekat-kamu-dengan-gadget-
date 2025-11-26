@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kuis Gadget Remaja 13–18 Tahun</title>
+  <style>
+    :root {
+      --bg: linear-gradient(135deg, #c8e7ff, #eef4ff);
+      --card-bg: #ffffff;
+      --card-border: rgba(255, 255, 255, 0.8);
+      --text-main: #1a2b56;
+      --text-sub: #4a5270;
+      --accent: #4f7cff;
+      --accent-soft: #e3ecff;
+      --danger: #ff7979;
+      --warning: #ffb65c;
+      --success: #58d5a7;
+      --accent-strong: #4f7cff;
+      --shadow: 0 16px 40px rgba(18, 36, 94, 0.25);
+      --chip-bg: rgba(255, 255, 255, 0.8);
+    }
+
+    body.dark {
+      --bg: radial-gradient(circle at top, #050816, #050810 50%, #02030a 100%);
+      --card-bg: #06091a;
+      --card-border: rgba(135, 158, 255, 0.28);
+      --text-main: #f7f8ff;
+      --text-sub: #c2c7ff;
+      --accent: #8fa2ff;
+      --accent-soft: rgba(79, 124, 255, 0.12);
+      --danger: #ff8a8a;
+      --warning: #ffc86e;
+      --success: #6ee7b7;
+      --accent-strong: #7c8eff;
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      --chip-bg: rgba(10, 18, 60, 0.9);
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 24px 12px;
+      background: var(--bg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background 0.4s ease;
+    }
+
+    .shell {
+      max-width: 720px;
+      width: 100%;
+      border-radius: 28px;
+      padding: 4px;
+      background: linear-gradient(135deg, rgba(79, 124, 255, 0.4), rgba(54, 193, 166, 0.4));
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: visible;
+    }
+
+    .shell-blur {
+      position: absolute;
+      inset: -40px;
+      background: radial-gradient(circle at 0% 0%, rgba(118, 169, 255, 0.35), transparent 65%);
+      opacity: 0.8;
+      filter: blur(10px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body.dark .shell-blur {
+      background: radial-gradient(circle at 0% 0%, rgba(120, 146, 255, 0.4), transparent 65%);
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 20px 18px 20px;
+      border: 1px solid var(--card-border);
+      overflow: hidden;
+    }
+
+    .bg-bubble {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.16;
+      pointer-events: none;
+      filter: blur(0.6px);
+    }
+
+    .b1 {
+      width: 150px;
+      height: 150px;
+      background: #8ea3ff;
+      top: -50px;
+      right: -40px;
+      animation: float1 15s linear infinite;
+    }
+
+    .b2 {
+      width: 110px;
+      height: 110px;
+      background: #36c1a6;
+      bottom: -50px;
+      left: -30px;
+      animation: float2 13s linear infinite;
+    }
+
+    .b3 {
+      width: 80px;
+      height: 80px;
+      background: #ffd88a;
+      top: 40%;
+      left: -20px;
+      animation: float3 19s linear infinite;
+    }
+
+    @keyframes float1 {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(12px); }
+      100% { transform: translateY(0); }
+    }
+    @keyframes float2 {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+    @keyframes float3 {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(8px); }
+      100% { transform: translateY(0); }
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .avatar-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatar-circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 24px;
+      background: radial-gradient(circle at 0 0, #ffe8b3, #ffb6c1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.1rem;
+      box-shadow: 0 8px 18px rgba(255, 148, 187, 0.65);
+      position: relative;
+      overflow: hidden;
+    }
+
+    body.dark .avatar-circle {
+      background: radial-gradient(circle at 0 0, #f5cc8b, #ff9ac5);
+    }
+
+    .avatar-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 0%, rgba(255, 255, 255, 0.35), transparent 60%);
+    }
+
+    .avatar-badge {
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #fcd7ff;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    }
+
+    .title-block h1 {
+      margin: 0;
+      font-size: 1.25rem;
+      color: var(--text-main);
+    }
+
+    .title-block p {
+      margin: 2px 0 0;
+      font-size: 0.83rem;
+      color: var(--text-sub);
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .chip {
+      font-size: 0.72rem;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: var(--chip-bg);
+      color: var(--text-sub);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      backdrop-filter: blur(6px);
+    }
+
+    body.dark .chip {
+      color: #e1e4ff;
+    }
+
+    .chip-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .mode-toggle {
+      border-radius: 999px;
+      border: 1px solid rgba(141, 151, 255, 0.6);
+      padding: 4px 8px;
+      font-size: 0.76rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.94);
+      cursor: pointer;
+      color: #3f4a7f;
+    }
+
+    body.dark .mode-toggle {
+      background: rgba(9, 14, 48, 0.96);
+      color: #e1e4ff;
+    }
+
+    .mode-toggle span.icon {
+      font-size: 1.05rem;
+    }
+
+    .subtitle {
+      font-size: 0.8rem;
+      color: var(--text-sub);
+      margin: 8px 0 12px;
+      position: relative;
+      z-index: 2;
+    }
+
+    #progress {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 0.82rem;
+      color: var(--text-sub);
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .prog-label {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    #progText {
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .prog-sub {
+      font-size: 0.74rem;
+      opacity: 0.8;
+    }
+
+    .bar {
+      flex: 1;
+      height: 7px;
+      background: #e3e7ff;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    body.dark .bar {
+      background: rgba(67, 87, 185, 0.45);
+    }
+
+    .fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #4f7cff, #36c1a6);
+      transition: width 0.25s ease;
+    }
+
+    #question {
+      margin-top: 12px;
+      font-weight: 600;
+      color: var(--text-main);
+      font-size: 1rem;
+      display: flex;
+      gap: 8px;
+      position: relative;
+      z-index: 2;
+    }
+
+    #qIcon {
+      font-size: 1.5rem;
+      margin-top: 2px;
+    }
+
+    #qText {
+      flex: 1;
+    }
+
+    #options {
+      margin-top: 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      padding: 10px 11px;
+      margin-top: 8px;
+      border-radius: 14px;
+      border: 1px solid #d4dbff;
+      background: #f7f8ff;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    body.dark .option-btn {
+      background: rgba(6, 11, 42, 0.98);
+      border-color: rgba(122, 140, 255, 0.5);
+      color: #e1e4ff;
+    }
+
+    .option-btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 0 0, rgba(79, 124, 255, 0.12), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      pointer-events: none;
+    }
+
+    .option-btn:hover::before {
+      opacity: 1;
+    }
+
+    .option-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+    }
+
+    body.dark .option-btn:hover {
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.75);
+    }
+
+    .opt-badge {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: #e2e6ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #3b4578;
+      flex-shrink: 0;
+    }
+
+    body.dark .opt-badge {
+      background: rgba(104, 119, 255, 0.25);
+      color: #e1e4ff;
+    }
+
+    .opt-text {
+      flex: 1;
+    }
+
+    .option-btn.disabled {
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .option-btn.selected {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 16px rgba(79, 124, 255, 0.4);
+    }
+
+    .option-btn.selected .opt-badge {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    #feedback {
+      font-size: 0.82rem;
+      color: var(--text-sub);
+      min-height: 40px;
+      margin-top: 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    #next {
+      margin-top: 14px;
+      width: 100%;
+      padding: 11px 12px;
+      border-radius: 12px;
+      border: none;
+      font-size: 0.96rem;
+      font-weight: 600;
+      background: #c1c7ff;
+      color: #fff;
+      cursor: default;
+      transition: background 0.12s ease, transform 0.12s ease, box-shadow 0.12s ease;
+      position: relative;
+      z-index: 2;
+    }
+
+    #next.active {
+      background: linear-gradient(135deg, #4f7cff, #687dff);
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(66, 85, 255, 0.45);
+    }
+
+    #next.active:hover {
+      transform: translateY(-1px);
+      background: linear-gradient(135deg, #3c4adf, #5169ff);
+    }
+
+    #resultArea {
+      margin-top: 16px;
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      position: relative;
+      z-index: 2;
+    }
+
+    .levelTag {
+      font-weight: 700;
+      padding: 10px 11px;
+      border-radius: 14px;
+      color: #fff;
+      margin-bottom: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+    }
+
+    .L1 { background: linear-gradient(135deg, var(--danger), #ff9f9f); }
+    .L2 { background: linear-gradient(135deg, var(--warning), #ffd58a); color: #4b2c05;}
+    .L3 { background: linear-gradient(135deg, var(--success), #8cf0c5); color: #053a32;}
+    .L4 { background: linear-gradient(135deg, var(--accent-strong), #9ac0ff); color: #041738;}
+
+    .levelTag span.icon {
+      font-size: 1.2rem;
+    }
+
+    .section-title {
+      margin-top: 10px;
+      margin-bottom: 4px;
+      font-weight: 600;
+      color: var(--text-main);
+      font-size: 0.9rem;
+    }
+
+    .tips-list {
+      margin: 0;
+      padding-left: 18px;
+      font-size: 0.82rem;
+    }
+
+    .tips-list li {
+      margin-bottom: 3px;
+    }
+
+    .story-wrapper {
+      margin-top: 14px;
+    }
+
+    .story-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--text-sub);
+    }
+
+    .story-btn {
+      margin-top: 8px;
+      width: 100%;
+      padding: 9px 11px;
+      border-radius: 12px;
+      border: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: #25b67a;
+      color: #ffffff;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+    }
+
+    .story-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(37, 182, 122, 0.45);
+      background: #1f9a67;
+    }
+
+    .story-note {
+      font-size: 0.75rem;
+      color: var(--text-sub);
+      margin-top: 4px;
+    }
+
+    .story-card {
+      margin-top: 10px;
+      width: 100%;
+      max-width: 360px;
+      aspect-ratio: 9 / 16;
+      border-radius: 24px;
+      background: radial-gradient(circle at top, #ffeda8, #ff9ac5 45%, #4f7cff 100%);
+      padding: 14px 14px 18px;
+      color: #ffffff;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    body.dark .story-card {
+      background: radial-gradient(circle at top, #fccf8b, #ff8ec2 35%, #252b72 100%);
+    }
+
+    .story-ring {
+      position: absolute;
+      inset: -30px;
+      background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.35), transparent 65%);
+      opacity: 0.8;
+    }
+
+    .story-chip {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(6px);
+    }
+
+    .story-main {
+      position: relative;
+      z-index: 1;
+      margin-top: 16px;
+    }
+
+    .story-title {
+      font-size: 0.94rem;
+      font-weight: 700;
+      max-width: 80%;
+      line-height: 1.2;
+    }
+
+    .story-score {
+      font-size: 0.8rem;
+      margin-top: 6px;
+      opacity: 0.9;
+    }
+
+    .story-footer {
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 16px;
+      font-size: 0.76rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      opacity: 0.95;
+    }
+
+    .story-handle {
+      font-weight: 600;
+    }
+
+    .story-badge {
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(8px);
+      font-size: 0.7rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .story-badge span.dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #7cf3c7;
+    }
+
+    .reflection-area {
+      margin-top: 12px;
+      font-size: 0.8rem;
+    }
+
+    .reflection-area textarea {
+      width: 100%;
+      min-height: 90px;
+      border-radius: 12px;
+      border: 1px solid #d4dbff;
+      padding: 8px;
+      font-size: 0.8rem;
+      resize: vertical;
+      background: #f7f8ff;
+    }
+
+    body.dark .reflection-area textarea {
+      background: rgba(5, 11, 42, 0.98);
+      border-color: rgba(117, 134, 255, 0.7);
+      color: #e1e4ff;
+    }
+
+    .copy-btn {
+      margin-top: 6px;
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 11px;
+      border: none;
+      font-size: 0.84rem;
+      font-weight: 600;
+      background: #36c1a6;
+      color: #fff;
+      cursor: pointer;
+      transition: 0.12s;
+    }
+
+    .copy-btn:hover {
+      background: #2a9d85;
+    }
+
+    .copy-status {
+      margin-top: 4px;
+      font-size: 0.76rem;
+      color: var(--text-sub);
+    }
+
+    @media (max-width: 520px) {
+      .card {
+        padding: 16px 13px 16px;
+      }
+      .avatar-circle {
+        width: 52px;
+        height: 52px;
+        border-radius: 20px;
+        font-size: 1.8rem;
+      }
+      .title-block h1 {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="shell-blur"></div>
+    <div class="card">
+      <div class="bg-bubble b1"></div>
+      <div class="bg-bubble b2"></div>
+      <div class="bg-bubble b3"></div>
+
+      <div class="top-bar">
+        <div class="avatar-wrap">
+          <div class="avatar-circle">
+            <div class="avatar-overlay"></div>
+            <span>🧑‍💻</span>
+            <div class="avatar-badge">📱</div>
+          </div>
+          <div class="title-block">
+            <h1>Kuis Gadget Remaja (13–18 Tahun)</h1>
+            <p>Refleksi ringan untuk lihat seberapa seimbang kamu pakai gadget, tanpa menghakimi. ✨</p>
+          </div>
+        </div>
+        <button id="modeToggle" class="mode-toggle" type="button">
+          <span class="icon">🌙</span>
+          <span id="modeLabel">Dark</span>
+        </button>
+      </div>
+
+      <div class="chip-row">
+        <div class="chip">
+          <span class="chip-dot"></span>
+          <span>Self-check, bukan nilai rapor</span>
+        </div>
+        <div class="chip">
+          <span class="chip-dot"></span>
+          <span>Semua jawaban boleh, nggak ada yang salah</span>
+        </div>
+      </div>
+
+      <p class="subtitle">
+        Pilih jawaban yang paling mirip dengan kehidupan kamu sehari-hari. Tujuannya supaya kamu makin kenal diri dan bisa pakai gadget dengan lebih nyaman & seimbang. 💙
+      </p>
+
+      <div id="progress">
+        <div class="prog-label">
+          <span id="progText">Pertanyaan 1/10</span>
+          <span class="prog-sub">Jawab jujur untuk hasil refleksi yang lebih pas buat kamu</span>
+        </div>
+        <div class="bar"><div class="fill" id="fill"></div></div>
+      </div>
+
+      <div id="question">
+        <span id="qIcon">📱</span>
+        <span id="qText">Memuat...</span>
+      </div>
+
+      <div id="options"></div>
+      <div id="feedback"></div>
+
+      <button id="next" type="button">Lanjut</button>
+
+      <div id="resultArea"></div>
+    </div>
+  </div>
+
+  <!-- html2canvas untuk screenshot IG Story-style -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+  <script>
+    const questions = [
+      {
+        icon: "⏱️",
+        area: "Kendali waktu",
+        text: "Saat main gadget, biasanya kamu bisa berhenti tepat waktu sesuai batas yang kamu tentukan sendiri?",
+        options: [
+          { text: "Susah banget berhenti, kadang harus dipaksa baru lepas", score: 1 },
+          { text: "Lumayan bisa berhenti, meski kadang masih bablas sedikit", score: 2 },
+          { text: "Bisa berhenti tanpa drama, tinggal tutup aja", score: 3 }
+        ]
+      },
+      {
+        icon: "😴",
+        area: "Tidur & istirahat",
+        text: "Gadget ngaruh nggak ke jam tidur kamu akhir-akhir ini?",
+        options: [
+          { text: "Sering banget begadang karena scroll atau main", score: 1 },
+          { text: "Kadang ngaruh, kadang enggak", score: 2 },
+          { text: "Nggak terlalu ngaruh, jam tidurku lumayan stabil", score: 3 }
+        ]
+      },
+      {
+        icon: "🎯",
+        area: "Fokus & produktivitas",
+        text: "Saat belajar, apakah gadget sering mengganggu fokus kamu?",
+        options: [
+          { text: "Iya banget, sekali buka langsung lupa belajar", score: 1 },
+          { text: "Kadang terganggu, tapi bisa balik lagi fokus", score: 2 },
+          { text: "Aku bisa atur notifikasi dan tetap fokus", score: 3 }
+        ]
+      },
+      {
+        icon: "📸",
+        area: "Media sosial",
+        text: "Kalau lihat postingan orang lain, kamu sering membandingkan diri sampai jadi sedih?",
+        options: [
+          { text: "Cukup sering dan bikin kepikiran", score: 1 },
+          { text: "Kadang-kadang, tapi nggak sampai berat", score: 2 },
+          { text: "Jarang, aku lebih fokus sama diriku", score: 3 }
+        ]
+      },
+      {
+        icon: "🏆",
+        area: "Tujuan penggunaan",
+        text: "Gadget kamu lebih banyak dipakai buat apa?",
+        options: [
+          { text: "Hiburan doang sepanjang hari", score: 1 },
+          { text: "Campur: hiburan + kadang belajar/produktif", score: 2 },
+          { text: "Hiburan oke, tapi banyak juga buat hal-hal produktif", score: 3 }
+        ]
+      },
+      {
+        icon: "🧠",
+        area: "Kesadaran emosi",
+        text: "Saat lagi stres atau sedih, kamu lebih memilih gadget sebagai pelarian?",
+        options: [
+          { text: "Sering banget, itu cara cepat biar nggak kepikiran", score: 1 },
+          { text: "Kadang iya, kadang aku cari cara lain juga", score: 2 },
+          { text: "Aku cukup sadar kapan harus jeda dari gadget", score: 3 }
+        ]
+      },
+      {
+        icon: "👥",
+        area: "Interaksi sosial",
+        text: "Apakah gadget mengganggu waktu kamu dengan teman atau keluarga?",
+        options: [
+          { text: "Iya, sering keasyikan sendiri", score: 1 },
+          { text: "Kadang iya, tapi lumayan bisa dikontrol", score: 2 },
+          { text: "Enggak, aku tetap hadir saat bersama orang lain", score: 3 }
+        ]
+      },
+      {
+        icon: "🛡️",
+        area: "Keamanan digital",
+        text: "Saat ada hal aneh/tidak nyaman online, seberapa siap kamu menghadapinya?",
+        options: [
+          { text: "Bingung dan biasanya diemin aja", score: 1 },
+          { text: "Tahu harus ngapain, tapi kadang ragu", score: 2 },
+          { text: "Cukup paham cara blokir, lapor, dan jaga privasi", score: 3 }
+        ]
+      },
+      {
+        icon: "⚖️",
+        area: "Keseimbangan hidup",
+        text: "Menurut kamu, hidupmu sekarang seimbang nggak antara gadget – sekolah – istirahat – sosial?",
+        options: [
+          { text: "Lumayan nggak seimbang, lebih berat di gadget", score: 1 },
+          { text: "Cukup seimbang walau kadang goyang", score: 2 },
+          { text: "Seimbang banget dan aku nyaman", score: 3 }
+        ]
+      },
+      {
+        icon: "🌱",
+        area: "Kebiasaan sehat",
+        text: "Seberapa sering kamu mengambil 'digital break' atau jeda gadget?",
+        options: [
+          { text: "Jarang, bingung mau ngapain kalau tanpa gadget", score: 1 },
+          { text: "Kadang ambil jeda kalau udah capek", score: 2 },
+          { text: "Cukup sering dan rutin istirahat dari layar", score: 3 }
+        ]
+      }
+    ];
+
+    const levels = [
+      {
+        name: "Masih Belajar Menemukan Ritme",
+        emoji: "🌊",
+        class: "L1",
+        desc:
+          "Kamu lagi di tahap mencari pola penggunaan gadget yang lebih nyaman dan sehat buat diri sendiri. Ini wajar banget, apalagi di usia remaja yang penuh perubahan. Yang penting, kamu sudah mau jujur sama diri sendiri dan itu langkah yang keren."
+      },
+      {
+        name: "Sudah Lumayan Seimbang",
+        emoji: "⚖️",
+        class: "L2",
+        desc:
+          "Sebagian besar kebiasaanmu sudah oke. Kadang masih goyang, tapi kamu cukup sadar kapan harus rem, kapan boleh lanjut. Tinggal beberapa bagian yang bisa diperhalus supaya kamu makin nyaman dan nggak cepat capek secara fisik maupun mental."
+      },
+      {
+        name: "Cukup Terkendali & Tahu Batas",
+        emoji: "🌱",
+        class: "L3",
+        desc:
+          "Kamu sudah punya kendali diri yang baik dalam memakai gadget. Kamu bisa pakai untuk hiburan, tapi tetap ingat belajar, istirahat, dan hubungan sama orang di sekitarmu. Tinggal dijaga konsistensinya dan terus peka sama sinyal tubuh & perasaanmu."
+      },
+      {
+        name: "Kamu Role Model Gadget Sehat!",
+        emoji: "🌟",
+        class: "L4",
+        desc:
+          "Keren banget! Kamu sudah sangat reflektif dan cukup bijak memakai gadget. Kamu bisa blend antara hiburan, produktivitas, dan istirahat. Sikap seperti ini bisa menginspirasi teman-temanmu juga. Tetap fleksibel, tetap rendah hati, dan terus belajar."
+      }
+    ];
+
+    const areaTips = {
+      "Kendali waktu": [
+        "Coba pasang timer atau alarm kecil sebagai pengingat waktu berhenti main gadget.",
+        "Bikin aturan pribadi, misalnya: setelah 1 jam main, harus ada jeda 10–15 menit untuk aktivitas lain."
+      ],
+      "Tidur & istirahat": [
+        "Biasakan meletakkan gadget agak jauh dari tempat tidur supaya tidak tergoda scroll sebelum tidur.",
+        "Coba 30–45 menit tanpa gadget sebelum tidur dan isi dengan baca buku ringan, stretching, atau ngobrol dengan keluarga."
+      ],
+      "Fokus & produktivitas": [
+        "Gunakan mode fokus atau matikan notifikasi saat belajar supaya otak tidak sering terpotong.",
+        "Coba teknik belajar 25 menit fokus + 5 menit istirahat, lalu cek gadget hanya di waktu istirahat."
+      ],
+      "Media sosial": [
+        "Ingat bahwa yang sering muncul di feed biasanya sisi terbaik atau paling menarik dari hidup orang, bukan keseluruhannya.",
+        "Kurangi follow akun yang bikin kamu merasa kurang atau tertekan, dan tambah akun yang menginspirasi atau mengedukasi."
+      ],
+      "Tujuan penggunaan": [
+        "Tambahkan satu aktivitas produktif yang kamu suka di gadget, misalnya belajar desain, musik, bahasa, atau editing.",
+        "Buat daftar hal-hal seru yang ingin kamu pelajari lewat gadget supaya tidak melulu hanya scroll tanpa arah."
+      ],
+      "Kesadaran emosi": [
+        "Saat sedih atau stres, coba tulis dulu perasaanmu di catatan atau chat teman dekat sebelum langsung lari ke gadget.",
+        "Perhatikan sinyal tubuh: kepala pusing, mata lelah, atau hati nggak enak bisa jadi tanda butuh istirahat dari layar."
+      ],
+      "Interaksi sosial": [
+        "Saat lagi kumpul dengan orang lain, coba taruh gadget di tas atau meja dan fokus ke obrolan dulu.",
+        "Beri batasan: jika sedang ngobrol langsung, tunda dulu membalas chat yang tidak darurat."
+      ],
+      "Keamanan digital": [
+        "Pastikan akunmu privat jika perlu, dan berhati-hati saat membagikan informasi pribadi.",
+        "Ingat: kalau ada yang membuatmu tidak nyaman, kamu berhak blokir, mute, atau laporkan tanpa rasa bersalah."
+      ],
+      "Keseimbangan hidup": [
+        "Tuliskan jadwal simple harianmu dan lihat apakah waktu gadget sudah nyaman, kalau belum bisa kamu atur ulang pelan-pelan.",
+        "Coba isi hari dengan kombinasi: belajar, aktivitas fisik ringan, ngobrol, hobi, lalu gadget sebagai bonus."
+      ],
+      "Kebiasaan sehat": [
+        "Ambil jeda dari layar setiap 45–60 menit, meski hanya untuk minum air atau melihat ke arah jauh.",
+        "Sesekali coba 'mini digital detox', misalnya 1–2 jam di akhir pekan tanpa gadget dan isi dengan kegiatan lain."
+      ]
+    };
+
+    let currentIndex = 0;
+    let totalScore = 0;
+    let weakAreas = [];
+    let selectedInCurrent = false;
+
+    const qIconEl = document.getElementById("qIcon");
+    const qTextEl = document.getElementById("qText");
+    const optionsEl = document.getElementById("options");
+    const feedbackEl = document.getElementById("feedback");
+    const progTextEl = document.getElementById("progText");
+    const fillEl = document.getElementById("fill");
+    const nextBtn = document.getElementById("next");
+    const resultAreaEl = document.getElementById("resultArea");
+    const modeToggleBtn = document.getElementById("modeToggle");
+    const modeLabelEl = document.getElementById("modeLabel");
+
+    function loadQuestion() {
+      const q = questions[currentIndex];
+      qIconEl.textContent = q.icon;
+      qTextEl.textContent = q.text;
+      optionsEl.innerHTML = "";
+      feedbackEl.textContent = "";
+      selectedInCurrent = false;
+      nextBtn.classList.remove("active");
+
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "option-btn";
+        const badge = document.createElement("span");
+        badge.className = "opt-badge";
+        badge.textContent = String.fromCharCode(65 + idx);
+
+        const textSpan = document.createElement("span");
+        textSpan.className = "opt-text";
+        textSpan.textContent = opt.text;
+
+        btn.appendChild(badge);
+        btn.appendChild(textSpan);
+
+        btn.addEventListener("click", () => handleOptionClick(btn, opt.score, q.area));
+        optionsEl.appendChild(btn);
+      });
+
+      progTextEl.textContent = `Pertanyaan ${currentIndex + 1}/${questions.length}`;
+      fillEl.style.width = `${(currentIndex / questions.length) * 100}%`;
+    }
+
+    function handleOptionClick(button, score, area) {
+      if (selectedInCurrent) return;
+      selectedInCurrent = true;
+
+      const allBtns = optionsEl.querySelectorAll(".option-btn");
+      allBtns.forEach(b => {
+        b.classList.add("disabled");
+      });
+      button.classList.add("selected");
+
+      totalScore += score;
+      if (score === 1) {
+        weakAreas.push(area);
+      }
+
+      let feedbackText = "";
+      if (score === 1) {
+        feedbackText = "Terima kasih sudah jujur sama diri sendiri. Jawaban ini menunjukkan kamu lagi butuh sedikit bantuan untuk menemukan ritme yang lebih nyaman saat pakai gadget, dan itu nggak apa-apa.";
+      } else if (score === 2) {
+        feedbackText = "Kamu sudah cukup sadar dan sedang proses nyari keseimbangan. Kadang goyang itu wajar, yang penting kamu terus belajar dari pengalaman sehari-hari.";
+      } else {
+        feedbackText = "Keren, kamu sudah cukup bisa mengatur diri di area ini. Tetap jaga ritme yang bikin kamu merasa sehat, produktif, dan tetap punya ruang untuk istirahat.";
+      }
+      feedbackEl.textContent = feedbackText;
+      nextBtn.classList.add("active");
+    }
+
+    nextBtn.addEventListener("click", () => {
+      if (!nextBtn.classList.contains("active")) return;
+
+      currentIndex++;
+      if (currentIndex < questions.length) {
+        loadQuestion();
+      } else {
+        showResult();
+      }
+    });
+
+    function showResult() {
+      document.getElementById("question").style.display = "none";
+      optionsEl.style.display = "none";
+      feedbackEl.style.display = "none";
+      nextBtn.style.display = "none";
+
+      progTextEl.textContent = "Selesai! 🎉";
+      fillEl.style.width = "100%";
+
+      const maxScore = 30;
+      const minScore = 10;
+      const pct = ((totalScore - minScore) / (maxScore - minScore)) * 100;
+
+      let levelIdx;
+      if (pct <= 25) levelIdx = 0;
+      else if (pct <= 50) levelIdx = 1;
+      else if (pct <= 75) levelIdx = 2;
+      else levelIdx = 3;
+
+      const level = levels[levelIdx];
+      const uniqueAreas = [...new Set(weakAreas)];
+
+      let html = "";
+
+      html += `<div class="levelTag ${level.class}">
+        <span class="icon">${level.emoji}</span>
+        <span>${level.name}</span>
+      </div>`;
+      html += `<p>${level.desc}</p>`;
+
+      if (uniqueAreas.length > 0) {
+        html += `<div class="section-title">Beberapa hal yang bisa kamu kuatkan pelan-pelan:</div>`;
+        uniqueAreas.forEach(area => {
+          const tips = areaTips[area];
+          if (tips && tips.length) {
+            html += `<p style="margin:4px 0 2px;"><b>${area}</b></p>`;
+            html += `<ul class="tips-list">${tips.map(t => `<li>${t}</li>`).join("")}</ul>`;
+          }
+        });
+      }
+
+      // Story preview + screenshot
+      html += `
+        <div class="story-wrapper">
+          <div class="story-header">
+            <span>Preview untuk IG Story</span>
+            <span style="font-size:0.78rem;opacity:0.85;">(bisa kamu simpan & upload sendiri)</span>
+          </div>
+          <div id="storyCard" class="story-card">
+            <div class="story-ring"></div>
+            <div class="story-chip">
+              <span>📱 Kuis Gadget Remaja</span>
+              <span style="opacity:0.8;">13–18 tahun</span>
+            </div>
+            <div class="story-main">
+              <div class="story-title">${level.name}</div>
+              <div class="story-score">Refleksi singkat: ${Math.round(pct)}% perjalanan menemukan ritme gadget yang sehat 💡</div>
+            </div>
+            <div class="story-footer">
+              <div class="story-handle">@kuis_gadget_remaja</div>
+              <div class="story-badge">
+                <span class="dot"></span>
+                <span>Belajar seimbang, bukan sempurna.</span>
+              </div>
+            </div>
+          </div>
+          <button id="storyBtn" class="story-btn" type="button">
+            <span>📸 Simpan gambar untuk IG Story</span>
+          </button>
+          <p class="story-note">Setelah tersimpan, kamu bisa upload gambar ini ke IG Story dan tulis refleksi versi kamu sendiri.</p>
+        </div>
+      `;
+
+      const reflectionText =
+        `${level.name}\n\n` +
+        `${level.desc}\n\n` +
+        `Beberapa hal yang ingin aku perbaiki/pertahankan:\n` +
+        `- (Tulis sendiri: misalnya jam tidur, fokus belajar, atau cara aku pakai media sosial)\n` +
+        `- (Tulis sendiri: kegiatan non-gadget yang mau aku coba)\n`;
+
+      html += `
+        <div class="reflection-area">
+          <div class="section-title">Teks refleksi (opsional untuk dicatat / disalin):</div>
+          <textarea id="reflectionText" readonly>${reflectionText}</textarea>
+          <button id="copyBtn" class="copy-btn" type="button">Salin teks refleksi</button>
+          <div id="copyStatus" class="copy-status"></div>
+        </div>
+      `;
+
+      resultAreaEl.innerHTML = html;
+
+      const storyBtn = document.getElementById("storyBtn");
+      const storyCard = document.getElementById("storyCard");
+      const copyBtn = document.getElementById("copyBtn");
+      const copyStatus = document.getElementById("copyStatus");
+      const reflectionTextEl = document.getElementById("reflectionText");
+
+      if (storyBtn && storyCard) {
+        storyBtn.addEventListener("click", () => {
+          html2canvas(storyCard, { scale: 3 }).then(canvas => {
+            const link = document.createElement("a");
+            link.download = "kuis-gadget-remaja-story.png";
+            link.href = canvas.toDataURL("image/png");
+            link.click();
+          });
+        });
+      }
+
+      if (copyBtn) {
+        copyBtn.addEventListener("click", () => {
+          const txt = reflectionTextEl.value;
+          if (!txt) return;
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(txt)
+              .then(() => copyStatus.textContent = "Teks refleksi berhasil disalin ✅")
+              .catch(() => copyStatus.textContent = "Gagal menyalin. Silakan blok dan salin manual.");
+          } else {
+            reflectionTextEl.select();
+            document.execCommand("copy");
+            copyStatus.textContent = "Teks refleksi berhasil disalin ✅";
+          }
+        });
+      }
+    }
+
+    // Dark mode toggle
+    function applyMode(mode) {
+      if (mode === "dark") {
+        document.body.classList.add("dark");
+        modeLabelEl.textContent = "Light";
+        modeToggleBtn.querySelector(".icon").textContent = "☀️";
+      } else {
+        document.body.classList.remove("dark");
+        modeLabelEl.textContent = "Dark";
+        modeToggleBtn.querySelector(".icon").textContent = "🌙";
+      }
+    }
+
+    const savedMode = localStorage.getItem("quizGadgetMode");
+    if (savedMode === "dark") {
+      applyMode("dark");
+    } else {
+      applyMode("light");
+    }
+
+    modeToggleBtn.addEventListener("click", () => {
+      const isDark = document.body.classList.contains("dark");
+      const newMode = isDark ? "light" : "dark";
+      applyMode(newMode);
+      localStorage.setItem("quizGadgetMode", newMode);
+    });
+
+    // Start
+    loadQuestion();
+  </script>
+</body>
+</html>
