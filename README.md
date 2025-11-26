@@ -1,0 +1,1 @@
+# Seberapa-dekat-kamu-dengan-gadget-
