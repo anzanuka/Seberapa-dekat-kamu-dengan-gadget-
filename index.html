@@ -510,137 +510,23 @@
       margin-bottom: 3px;
     }
 
-    .story-wrapper {
-      margin-top: 14px;
-    }
-
-    .story-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.8rem;
-      color: var(--text-sub);
-    }
-
-    .story-btn {
-      margin-top: 8px;
-      width: 100%;
-      padding: 9px 11px;
-      border-radius: 12px;
-      border: none;
-      font-size: 0.85rem;
-      font-weight: 600;
-      background: #25b67a;
-      color: #ffffff;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
-    }
-
-    .story-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 16px rgba(37, 182, 122, 0.45);
-      background: #1f9a67;
-    }
-
-    .story-note {
-      font-size: 0.75rem;
-      color: var(--text-sub);
-      margin-top: 4px;
-    }
-
-    .story-card {
+    .result-illustration {
       margin-top: 10px;
-      width: 100%;
-      max-width: 360px;
-      aspect-ratio: 9 / 16;
-      border-radius: 24px;
-      background: radial-gradient(circle at top, #ffeda8, #ff9ac5 45%, #4f7cff 100%);
-      padding: 14px 14px 18px;
-      color: #ffffff;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
-    }
-
-    body.dark .story-card {
-      background: radial-gradient(circle at top, #fccf8b, #ff8ec2 35%, #252b72 100%);
-    }
-
-    .story-ring {
-      position: absolute;
-      inset: -30px;
-      background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.35), transparent 65%);
-      opacity: 0.8;
-    }
-
-    .story-chip {
-      position: relative;
-      z-index: 1;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.7rem;
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: rgba(0, 0, 0, 0.28);
-      backdrop-filter: blur(6px);
-    }
-
-    .story-main {
-      position: relative;
-      z-index: 1;
-      margin-top: 16px;
-    }
-
-    .story-title {
-      font-size: 0.94rem;
-      font-weight: 700;
-      max-width: 80%;
-      line-height: 1.2;
-    }
-
-    .story-score {
-      font-size: 0.8rem;
-      margin-top: 6px;
-      opacity: 0.9;
-    }
-
-    .story-footer {
-      position: absolute;
-      left: 14px;
-      right: 14px;
-      bottom: 16px;
-      font-size: 0.76rem;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      opacity: 0.95;
+      justify-content: center;
     }
 
-    .story-handle {
-      font-weight: 600;
+    .result-illustration svg {
+      max-width: 260px;
+      width: 80%;
+      border-radius: 20px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+      background: #fdfdfd;
     }
 
-    .story-badge {
-      padding: 4px 9px;
-      border-radius: 999px;
-      background: rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(8px);
-      font-size: 0.7rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .story-badge span.dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #7cf3c7;
+    body.dark .result-illustration svg {
+      background: #050816;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7);
     }
 
     .reflection-area {
@@ -768,10 +654,143 @@
     </div>
   </div>
 
-  <!-- html2canvas untuk screenshot IG Story-style -->
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-
   <script>
+    // --- ILUSTRASI LUCU PER LEVEL (SVG INLINE) ---
+    function getIllustrationSvg(levelIdx) {
+      // 4 gaya berbeda, tetap sopan, tema gadget & keseimbangan
+      if (levelIdx === 0) {
+        // Level 1: masih cari ritme, banyak gelembung notifikasi
+        return `
+<svg viewBox="0 0 260 170">
+  <defs>
+    <linearGradient id="bg1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffe6eb"/>
+      <stop offset="1" stop-color="#ffd0c2"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="260" height="170" fill="url(#bg1)"/>
+  <circle cx="55" cy="45" r="14" fill="#ff9f9f" opacity="0.85"/>
+  <circle cx="220" cy="40" r="10" fill="#ffcf7d" opacity="0.9"/>
+  <circle cx="230" cy="120" r="16" fill="#9fd8ff" opacity="0.85"/>
+  <rect x="80" y="35" rx="16" ry="16" width="100" height="110" fill="#202642" opacity="0.96"/>
+  <rect x="86" y="41" rx="12" ry="12" width="88" height="98" fill="#fafbff"/>
+  <rect x="93" y="52" width="74" height="12" rx="6" fill="#ffe5e8"/>
+  <circle cx="100" cy="58" r="4" fill="#ff8a8a"/>
+  <circle cx="111" cy="58" r="4" fill="#ffd27f"/>
+  <circle cx="122" cy="58" r="4" fill="#90cafb"/>
+  <circle cx="118" cy="82" r="9" fill="#ffd7d7"/>
+  <circle cx="145" cy="82" r="9" fill="#ffd7d7"/>
+  <circle cx="115" cy="80" r="3" fill="#333"/>
+  <circle cx="142" cy="80" r="3" fill="#333"/>
+  <path d="M118 91 Q132 99 145 91" stroke="#333" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <path d="M99 105 h58" stroke="#e2e5ff" stroke-width="3" stroke-linecap="round"/>
+  <path d="M99 115 h48" stroke="#e2e5ff" stroke-width="3" stroke-linecap="round"/>
+  <rect x="115" y="133" rx="3" ry="3" width="30" height="4" fill="#d0d4ff"/>
+  <path d="M52 103 q-8 16 2 26 t28 4" fill="#ffecef" stroke="#f8b0b0" stroke-width="2"/>
+  <circle cx="66" cy="113" r="7" fill="#fff"/>
+  <circle cx="68" cy="112" r="2.4" fill="#ff7b7b"/>
+  <circle cx="58" cy="124" r="3.5" fill="#ffcf7d"/>
+  <path d="M190 55 q18 -6 24 10 t-8 24" fill="#fff5d9" stroke="#ffc97d" stroke-width="2"/>
+  <circle cx="204" cy="63" r="4" fill="#ff9f9f"/>
+  <circle cx="212" cy="72" r="3.2" fill="#90cafb"/>
+</svg>`;
+      } else if (levelIdx === 1) {
+        // Level 2: mulai seimbang, ada timbangan gadget vs buku
+        return `
+<svg viewBox="0 0 260 170">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff5d9"/>
+      <stop offset="1" stop-color="#ffe0b5"/>
+    </linearGradient>
+  </defs>
+  <rect width="260" height="170" fill="url(#bg2)"/>
+  <circle cx="35" cy="40" r="12" fill="#ffcf7d" opacity="0.9"/>
+  <circle cx="230" cy="50" r="16" fill="#8fe0ca" opacity="0.8"/>
+  <rect x="70" y="120" width="120" height="6" rx="3" fill="#d7b08a"/>
+  <rect x="120" y="90" width="20" height="35" rx="4" fill="#c89c7b"/>
+  <rect x="80" y="84" width="100" height="7" rx="3.5" fill="#f9e2c5"/>
+  <rect x="72" y="78" width="24" height="40" rx="4" fill="#2c3558"/>
+  <rect x="76" y="82" width="16" height="32" rx="3" fill="#f6f7ff"/>
+  <circle cx="84" cy="115" r="2" fill="#cfd3ff"/>
+  <rect x="166" y="78" width="32" height="8" rx="3" fill="#f08e8e"/>
+  <rect x="166" y="86" width="32" height="8" rx="3" fill="#f8b9b9"/>
+  <rect x="168" y="94" width="28" height="8" rx="3" fill="#ffe9e9"/>
+  <rect x="170" y="102" width="24" height="8" rx="3" fill="#fff"/>
+  <path d="M82 82 q-8 18 4 28" stroke="#2c3558" stroke-width="1.5" fill="none"/>
+  <path d="M188 82 q10 16 -2 28" stroke="#c98282" stroke-width="1.5" fill="none"/>
+  <circle cx="130" cy="62" r="22" fill="#fff"/>
+  <circle cx="122" cy="60" r="4" fill="#333"/>
+  <circle cx="140" cy="60" r="4" fill="#333"/>
+  <path d="M122 71 q8 6 16 0" stroke="#333" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+  <path d="M115 54 q-4 -8 5 -12" stroke="#ffb65c" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M145 54 q4 -8 -5 -12" stroke="#ffb65c" stroke-width="2" fill="none" stroke-linecap="round"/>
+</svg>`;
+      } else if (levelIdx === 2) {
+        // Level 3: cukup terkendali, gadget + tanaman tumbuh
+        return `
+<svg viewBox="0 0 260 170">
+  <defs>
+    <linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e2fff2"/>
+      <stop offset="1" stop-color="#b9f0d6"/>
+    </linearGradient>
+  </defs>
+  <rect width="260" height="170" fill="url(#bg3)"/>
+  <circle cx="40" cy="40" r="13" fill="#9debcc" opacity="0.9"/>
+  <circle cx="225" cy="40" r="11" fill="#ffdf8a" opacity="0.9"/>
+  <rect x="170" y="115" width="36" height="10" rx="4" fill="#7bdcb0"/>
+  <rect x="174" y="100" width="28" height="18" rx="5" fill="#57b48a"/>
+  <path d="M188 100 q-8 -18 0 -30" stroke="#3a8d6a" stroke-width="2" fill="none"/>
+  <path d="M188 80 q-10 -6 -16 4" fill="#8fe0bd"/>
+  <path d="M188 80 q10 -6 16 4" fill="#9ff0cc"/>
+  <rect x="75" y="32" width="90" height="110" rx="18" fill="#222a44" opacity="0.96"/>
+  <rect x="82" y="38" width="76" height="98" rx="14" fill="#f7f9ff"/>
+  <circle cx="120" cy="66" r="16" fill="#e6f5ff"/>
+  <circle cx="114" cy="64" r="3.3" fill="#333"/>
+  <circle cx="126" cy="64" r="3.3" fill="#333"/>
+  <path d="M112 71 q8 7 16 0" stroke="#333" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  <path d="M95 88 h50" stroke="#dde3ff" stroke-width="3" stroke-linecap="round"/>
+  <path d="M95 98 h42" stroke="#dde3ff" stroke-width="3" stroke-linecap="round"/>
+  <path d="M95 108 h32" stroke="#dde3ff" stroke-width="3" stroke-linecap="round"/>
+  <rect x="109" y="126" width="24" height="4" rx="2" fill="#ced3ff"/>
+  <circle cx="202" cy="88" r="8" fill="#fff" opacity="0.8"/>
+  <circle cx="58" cy="120" r="16" fill="#fff" opacity="0.9"/>
+  <path d="M52 123 q6 6 12 0" stroke="#39a57b" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="52" cy="118" r="2.4" fill="#39a57b"/>
+  <circle cx="64" cy="118" r="2.4" fill="#39a57b"/>
+</svg>`;
+      } else {
+        // Level 4: role model, gadget + mahkota & bintang
+        return `
+<svg viewBox="0 0 260 170">
+  <defs>
+    <linearGradient id="bg4" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e2e7ff"/>
+      <stop offset="1" stop-color="#b8c6ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="260" height="170" fill="url(#bg4)"/>
+  <circle cx="40" cy="42" r="10" fill="#ffd27f" opacity="0.95"/>
+  <circle cx="220" cy="46" r="14" fill="#ff9ac5" opacity="0.9"/>
+  <circle cx="230" cy="120" r="10" fill="#96daff" opacity="0.85"/>
+  <rect x="80" y="30" width="100" height="115" rx="20" fill="#202642" opacity="0.97"/>
+  <rect x="87" y="37" width="86" height="101" rx="16" fill="#f7f8ff"/>
+  <circle cx="130" cy="68" r="18" fill="#e4ebff"/>
+  <circle cx="123" cy="66" r="3.4" fill="#333"/>
+  <circle cx="137" cy="66" r="3.4" fill="#333"/>
+  <path d="M122 74 q8 6 16 0" stroke="#333" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+  <path d="M118 54 l-7 -9 8 -3 5 6 5 -6 8 3 -7 9z" fill="#ffd76f" stroke="#f3b84b" stroke-width="1.3" stroke-linejoin="round"/>
+  <path d="M98 92 h64" stroke="#dde1ff" stroke-width="3" stroke-linecap="round"/>
+  <path d="M98 102 h54" stroke="#dde1ff" stroke-width="3" stroke-linecap="round"/>
+  <path d="M98 112 h42" stroke="#dde1ff" stroke-width="3" stroke-linecap="round"/>
+  <rect x="116" y="129" width="28" height="4" rx="2" fill="#c4c9ff"/>
+  <path d="M198 80 l4 8 9 1-7 6 2 9-8-4-8 4 2-9-7-6 9-1z" fill="#ffe89a" stroke="#f5c96c" stroke-width="1.3" stroke-linejoin="round"/>
+  <path d="M52 102 l4 7 7 1-6 5 1 7-6-3-6 3 1-7-6-5 7-1z" fill="#fff" opacity="0.9" stroke="#dde1ff" stroke-width="1.1" stroke-linejoin="round"/>
+</svg>`;
+      }
+    }
+
     const questions = [
       {
         icon: "⏱️",
@@ -1058,12 +1077,15 @@
       const uniqueAreas = [...new Set(weakAreas)];
 
       let html = "";
-
       html += `<div class="levelTag ${level.class}">
         <span class="icon">${level.emoji}</span>
         <span>${level.name}</span>
       </div>`;
-      html += `<p>${level.desc}</p>`;
+
+      // gambar ilustrasi lucu di sini
+      html += `<div class="result-illustration">${getIllustrationSvg(levelIdx)}</div>`;
+
+      html += `<p style="margin-top:8px;">${level.desc}</p>`;
 
       if (uniqueAreas.length > 0) {
         html += `<div class="section-title">Beberapa hal yang bisa kamu kuatkan pelan-pelan:</div>`;
@@ -1075,38 +1097,6 @@
           }
         });
       }
-
-      // Story preview + screenshot
-      html += `
-        <div class="story-wrapper">
-          <div class="story-header">
-            <span>Preview untuk IG Story</span>
-            <span style="font-size:0.78rem;opacity:0.85;">(bisa kamu simpan & upload sendiri)</span>
-          </div>
-          <div id="storyCard" class="story-card">
-            <div class="story-ring"></div>
-            <div class="story-chip">
-              <span>📱 Kuis Gadget Remaja</span>
-              <span style="opacity:0.8;">13–18 tahun</span>
-            </div>
-            <div class="story-main">
-              <div class="story-title">${level.name}</div>
-              <div class="story-score">Refleksi singkat: ${Math.round(pct)}% perjalanan menemukan ritme gadget yang sehat 💡</div>
-            </div>
-            <div class="story-footer">
-              <div class="story-handle">@kuis_gadget_remaja</div>
-              <div class="story-badge">
-                <span class="dot"></span>
-                <span>Belajar seimbang, bukan sempurna.</span>
-              </div>
-            </div>
-          </div>
-          <button id="storyBtn" class="story-btn" type="button">
-            <span>📸 Simpan gambar untuk IG Story</span>
-          </button>
-          <p class="story-note">Setelah tersimpan, kamu bisa upload gambar ini ke IG Story dan tulis refleksi versi kamu sendiri.</p>
-        </div>
-      `;
 
       const reflectionText =
         `${level.name}\n\n` +
@@ -1126,22 +1116,9 @@
 
       resultAreaEl.innerHTML = html;
 
-      const storyBtn = document.getElementById("storyBtn");
-      const storyCard = document.getElementById("storyCard");
       const copyBtn = document.getElementById("copyBtn");
       const copyStatus = document.getElementById("copyStatus");
       const reflectionTextEl = document.getElementById("reflectionText");
-
-      if (storyBtn && storyCard) {
-        storyBtn.addEventListener("click", () => {
-          html2canvas(storyCard, { scale: 3 }).then(canvas => {
-            const link = document.createElement("a");
-            link.download = "kuis-gadget-remaja-story.png";
-            link.href = canvas.toDataURL("image/png");
-            link.click();
-          });
-        });
-      }
 
       if (copyBtn) {
         copyBtn.addEventListener("click", () => {
